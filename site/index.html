@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Football Discipline Outliers</title>
+    <link rel="stylesheet" href="assets/style.css" />
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Football Match Discipline Outliers</h1>
+      <p>
+        Investigating the relationship between challenges / tackles and cards,
+        and flagging statistical outliers.
+      </p>
+    </header>
+
+    <div id="load-error" hidden style="padding: 1rem 2rem; color: #e45756"></div>
+
+    <div class="layout">
+      <aside>
+        <h2>Explore</h2>
+        <label>
+          Dataset
+          <select id="dataset"></select>
+        </label>
+        <label>
+          Aggregation level
+          <select id="level">
+            <option value="player">Players</option>
+            <option value="team">Teams</option>
+            <option value="match">Team-in-match</option>
+          </select>
+        </label>
+        <label>
+          Ratio / metric
+          <select id="ratio"></select>
+        </label>
+        <label>
+          Minimum <span id="min-denom-label">volume</span>:
+          <strong id="min-denom-value">0</strong>
+          <input id="min-denom" type="range" min="0" max="100" value="0" step="1" />
+        </label>
+
+        <h2>Outlier methods</h2>
+        <div class="checkbox-row">
+          <label><input id="method-zscore" type="checkbox" checked /> Z-score</label>
+          <label><input id="method-modified_zscore" type="checkbox" checked /> Modified z-score (MAD)</label>
+          <label><input id="method-iqr" type="checkbox" checked /> IQR fences</label>
+        </div>
+      </aside>
+
+      <main>
+        <div class="metrics">
+          <div class="metric">
+            <div class="label">Entities analysed</div>
+            <div class="value" id="metric-count">—</div>
+          </div>
+          <div class="metric">
+            <div class="label">Outliers flagged</div>
+            <div class="value" id="metric-outliers">—</div>
+          </div>
+          <div class="metric">
+            <div class="label" id="metric-median-label">Median ratio</div>
+            <div class="value" id="metric-median">—</div>
+          </div>
+          <div class="metric">
+            <div class="label">IQR fence (upper)</div>
+            <div class="value" id="metric-iqr">—</div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Challenges vs cards</h3>
+          <div id="scatter-chart" class="chart"></div>
+        </div>
+
+        <div class="panel">
+          <h3>Ratio distribution</h3>
+          <div id="hist-chart" class="chart small"></div>
+        </div>
+
+        <div class="panel">
+          <h3>Ranked outliers</h3>
+          <div class="toolbar">
+            <label><input id="only-outliers" type="checkbox" checked /> Show only flagged outliers</label>
+            <button id="download-btn" type="button">Download CSV</button>
+          </div>
+          <div style="overflow-x: auto">
+            <table>
+              <thead id="table-head"></thead>
+              <tbody id="table-body"></tbody>
+            </table>
+          </div>
+          <p id="table-note" style="color: var(--muted); font-size: 0.85rem"></p>
+        </div>
+      </main>
+    </div>
+
+    <footer id="attribution"></footer>
+    <script src="assets/app.js"></script>
+  </body>
+</html>
