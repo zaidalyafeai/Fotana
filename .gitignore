@@ -7,10 +7,9 @@ __pycache__/
 venv/
 
 # Local data cache (downloaded events + computed metrics)
-data/
+/data/
 
-# Local static site build output
-docs/
+# Local static site build scratch output (committed site lives in docs/)
 _site/
 
 # OS / editor

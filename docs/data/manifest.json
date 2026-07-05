@@ -1,0 +1,71 @@
+{
+  "datasets": [
+    {
+      "key": "2_27",
+      "competition_id": 2,
+      "season_id": 27,
+      "competition_name": "England - Premier League",
+      "season_name": "2015/2016",
+      "matches": 380,
+      "levels": {
+        "player": "2_27_player.json",
+        "team": "2_27_team.json",
+        "match": "2_27_match.json"
+      }
+    },
+    {
+      "key": "7_27",
+      "competition_id": 7,
+      "season_id": 27,
+      "competition_name": "France - Ligue 1",
+      "season_name": "2015/2016",
+      "matches": 377,
+      "levels": {
+        "player": "7_27_player.json",
+        "team": "7_27_team.json",
+        "match": "7_27_match.json"
+      }
+    },
+    {
+      "key": "12_27",
+      "competition_id": 12,
+      "season_id": 27,
+      "competition_name": "Italy - Serie A",
+      "season_name": "2015/2016",
+      "matches": 380,
+      "levels": {
+        "player": "12_27_player.json",
+        "team": "12_27_team.json",
+        "match": "12_27_match.json"
+      }
+    },
+    {
+      "key": "11_27",
+      "competition_id": 11,
+      "season_id": 27,
+      "competition_name": "Spain - La Liga",
+      "season_name": "2015/2016",
+      "matches": 380,
+      "levels": {
+        "player": "11_27_player.json",
+        "team": "11_27_team.json",
+        "match": "11_27_match.json"
+      }
+    }
+  ],
+  "ratio_labels": {
+    "cards_per_100_challenges": "Cards per 100 challenges",
+    "cards_per_100_tackles": "Cards per 100 tackles",
+    "tackles_per_card": "Tackles per card",
+    "challenges_per_card": "Challenges per card",
+    "tackles_per_yellow": "Tackles per yellow card",
+    "fouls_per_card": "Fouls per card",
+    "cards_per_foul": "Cards per foul",
+    "fouls_per_challenge": "Fouls per challenge",
+    "tackles_per_90": "Tackles per 90",
+    "challenges_per_90": "Challenges per 90",
+    "fouls_per_90": "Fouls per 90",
+    "cards_per_90": "Cards per 90"
+  },
+  "attribution": "Data provided by StatsBomb - https://github.com/statsbomb/open-data"
+}

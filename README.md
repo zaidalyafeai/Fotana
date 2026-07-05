@@ -74,13 +74,18 @@ required in the browser):
 
 **https://zaidalyafeai.github.io/Fotana/**
 
-Deployment runs automatically via [`.github/workflows/pages.yml`](.github/workflows/pages.yml)
-on pushes to `main`. The workflow downloads StatsBomb Open Data for the
-2015/16 top-league preset, computes metrics, exports JSON, and publishes the
-static dashboard from [`site/`](site/).
+The built site (2015/16 La Liga, Premier League, Serie A, Ligue 1) lives in
+[`docs/`](docs/). To enable hosting:
 
-> In repo **Settings → Pages**, set **Build and deployment → Source** to
-> **GitHub Actions** if the site is not live after the first workflow run.
+1. Open **Settings → Pages** in this repo.
+2. Under **Build and deployment → Source**, choose **Deploy from a branch**.
+3. Select branch **`main`**, folder **`/docs`**, and save.
+
+The site should be live within a minute or two.
+
+For automated rebuilds on every push, switch the Pages source to **GitHub
+Actions** instead. The workflow in [`.github/workflows/pages.yml`](.github/workflows/pages.yml)
+downloads StatsBomb data, recomputes metrics, and publishes a fresh artifact.
 
 To rebuild the static site locally:
 
