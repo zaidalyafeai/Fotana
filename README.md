@@ -67,7 +67,32 @@ Downloaded events are cached as Parquet under `data/cache/`, and computed
 metric tables are stored in `data/metrics.db` (SQLite). Data can also be
 loaded directly from the dashboard sidebar.
 
-## Run the dashboard
+## Live demo (GitHub Pages)
+
+The app is deployed as a static site on GitHub Pages (no Python or Streamlit
+required in the browser):
+
+**https://zaidalyafeai.github.io/Fotana/**
+
+Deployment runs automatically via [`.github/workflows/pages.yml`](.github/workflows/pages.yml)
+on pushes to `main`. The workflow downloads StatsBomb Open Data for the
+2015/16 top-league preset, computes metrics, exports JSON, and publishes the
+static dashboard from [`site/`](site/).
+
+> In repo **Settings → Pages**, set **Build and deployment → Source** to
+> **GitHub Actions** if the site is not live after the first workflow run.
+
+To rebuild the static site locally:
+
+```bash
+python scripts/load_data.py --preset
+python scripts/export_static_site.py --output docs
+python -m http.server --directory docs
+```
+
+Then open http://localhost:8000/
+
+## Run the Streamlit dashboard (local)
 
 ```bash
 streamlit run app/dashboard.py
@@ -92,6 +117,9 @@ Match / team / player metrics + ratios
         |  app/outliers.py
         v
 Streamlit dashboard  (app/dashboard.py)
+        |  scripts/export_static_site.py
+        v
+GitHub Pages static dashboard  (site/)
 ```
 
 ### Metrics (`app/metrics.py`)

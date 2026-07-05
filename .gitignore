@@ -9,5 +9,9 @@ venv/
 # Local data cache (downloaded events + computed metrics)
 data/
 
+# Local static site build output
+docs/
+_site/
+
 # OS / editor
 .DS_Store
