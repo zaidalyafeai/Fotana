@@ -70,6 +70,17 @@ def _name_column(df: pd.DataFrame) -> str:
     return df.columns[0]
 
 
+def _unique(cols: list[str]) -> list[str]:
+    """Preserve order while dropping duplicate column names."""
+    seen: set[str] = set()
+    out: list[str] = []
+    for c in cols:
+        if c not in seen:
+            seen.add(c)
+            out.append(c)
+    return out
+
+
 def sidebar_loader() -> None:
     st.sidebar.header("Load data")
     st.sidebar.caption(
@@ -209,7 +220,9 @@ def _scatter(df: pd.DataFrame, ratio: str, denom_col: str | None, name_col: str)
     st.subheader("Challenges vs cards")
     x = denom_col if denom_col and denom_col in df.columns else "challenges"
     y = "cards" if "cards" in df.columns else ratio
-    hover = [c for c in [name_col, "team", ratio, "challenges", "tackles", "cards", "matches"] if c in df.columns]
+    hover = _unique(
+        [c for c in [name_col, "team", ratio, "challenges", "tackles", "cards", "matches"] if c in df.columns]
+    )
     fig = px.scatter(
         df,
         x=x,
@@ -222,7 +235,7 @@ def _scatter(df: pd.DataFrame, ratio: str, denom_col: str | None, name_col: str)
         labels={x: x.replace("_", " ").title(), y: y.title(), "is_outlier": "Outlier"},
     )
     fig.update_layout(height=460, legend_title_text="Outlier")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 
 def _histogram(df: pd.DataFrame, ratio: str, result) -> None:
@@ -234,35 +247,37 @@ def _histogram(df: pd.DataFrame, ratio: str, result) -> None:
             if pd.notna(bound):
                 fig.add_vline(x=bound, line_dash="dash", line_color="#e45756")
     fig.update_layout(height=340)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 
 def _table(df: pd.DataFrame, ratio: str, name_col: str, level: str) -> None:
     st.subheader("Ranked outliers")
-    display_cols = [
-        c
-        for c in [
-            name_col,
-            "team",
-            "matches",
-            "minutes",
-            "tackles",
-            "challenges",
-            "fouls_committed",
-            "yellow_cards",
-            "cards",
-            ratio,
-            "outlier_method_count",
-            "outlier_score",
-            "is_outlier",
+    display_cols = _unique(
+        [
+            c
+            for c in [
+                name_col,
+                "team",
+                "matches",
+                "minutes",
+                "tackles",
+                "challenges",
+                "fouls_committed",
+                "yellow_cards",
+                "cards",
+                ratio,
+                "outlier_method_count",
+                "outlier_score",
+                "is_outlier",
+            ]
+            if c in df.columns
         ]
-        if c in df.columns
-    ]
+    )
     show_only = st.checkbox("Show only flagged outliers", value=True)
     view = df[df["is_outlier"]] if (show_only and "is_outlier" in df.columns) else df
     st.dataframe(
         view[display_cols].round(2),
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
     )
     st.download_button(
